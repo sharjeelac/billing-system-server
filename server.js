@@ -11,7 +11,11 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://billing-system-client-zeta.vercel.app', // frontend ka URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true // agar cookies ya tokens bhejne hain
+}));
 app.use(express.json());
 app.use(morgan('combined', { stream: fs.createWriteStream('server.log', { flags: 'a' }) }));
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
